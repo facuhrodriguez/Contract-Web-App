@@ -1,0 +1,103 @@
+<app-navbar [title]="'EthSwap'" [id]="getAccounts()[0]" [identicon]="getIdenticon()"></app-navbar>
+
+<div class="container-fluid mt-5" *ngIf="!isLoading else loading">
+    <div class="row row-card">
+        <main role="main" class="col-lg-12 ml-auto mr-auto main-swap">
+            <div class="content mr-auto ml-auto">
+                <div id="content">
+                    <div class="d-flex justify-content-between mb-3">
+                        <button class="btn btn-light" (click)="onBuyButton()">
+                            Buy
+                        </button>
+                        <span class="text-muted">&lt; &nbsp; &gt;</span>
+                        <button class="btn btn-light" (click)="onSellButton()">
+                            Sell
+                        </button>
+                    </div>
+                    <div class="card mb-4">
+
+                        <div class="card-body">
+                            <form class="mb-3" [formGroup]="formData" (ngSubmit)="onSubmit()">
+                                <div>
+                                    <label class="float-left"><b>Input</b></label>
+                                    <span class="float-right text-muted" *ngIf="buyForm">
+                                        Balance: {{convertEtwBalance()}}
+                                    </span>
+                                    <span class="float-right text-muted" *ngIf="sellForm">
+                                        Balance: {{convertTokenBalance()}}
+                                    </span>
+                                </div>
+                                <div class="input-group mb-4">
+                                    <input type="text" class="form-control form-control-lg" formControlName="input"
+                                        placeholder="0" required />
+                                    <div class="input-group-append">
+                                        <div class="input-group-text" *ngIf="buyForm">
+                                            <img src="/assets/img/eth-logo.png" height='32' alt="" />
+                                            &nbsp; ETH
+                                        </div>
+                                        <div class="input-group-text" *ngIf="sellForm">
+                                            <img src="/assets/img/token-logo.png" height='32' alt="" />
+                                            &nbsp; FAQ
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="float-left"><b>Output</b></label>
+                                    <span class="float-right text-muted" *ngIf="buyForm">
+                                        Balance: {{convertTokenBalance()}}
+                                    </span>
+                                    <span class="float-right text-muted" *ngIf="sellForm">
+                                        Balance: {{convertEtwBalance()}}
+
+                                    </span>
+                                </div>
+                                <div class="input-group mb-2">
+                                    <input type="text" formControlName="output" class="form-control form-control-lg"
+                                        placeholder="0" />
+                                    <div class="input-group-append">
+                                        <div class="input-group-text" *ngIf="buyForm">
+                                            <img src="/assets/img/token-logo.png" height='32' alt="" />
+                                            &nbsp;FAQ
+                                        </div>
+                                        <div class="input-group-text" *ngIf="sellForm">
+                                            <img src="/assets/img/eth-logo.png" height='32' alt="" />
+                                            &nbsp;ETH
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-5">
+                                    <span class="float-left text-muted">Exchange Rate</span>
+                                    <span class="float-right text-muted" *ngIf="buyForm">&nbsp; 1 ETH = 100 FAQ</span>
+                                    <span class="float-right text-muted" *ngIf="sellForm">&nbsp; 100 FAQ = 1 ETH
+                                    </span>
+
+                                </div>
+                                <div class="d-grid gap-2">
+                                    <button type="submit" class="btn btn-primary">SWAP!</button>
+                                    <button class="btn btn-primary" (click)="withdrawMoney()">Withdraw</button>
+                                </div>
+                            </form>
+
+
+
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+</div>
+
+
+<ng-template #loading>
+    <div class="d-flex justify-content-center mt-5">
+        <button class="btn btn-primary" type="button" disabled>
+            <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+            Loading...
+        </button>
+    </div>
+
+</ng-template>

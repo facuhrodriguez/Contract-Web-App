@@ -1,0 +1,14 @@
+<nav class="navbar navbar-dark bg-dark">
+    <h4 class="title-navbar">{{title}}</h4>
+    <ul className="navbar-nav px-3">
+        <li className="nav-item text-nowrap d-none d-sm-none d-sm-block">
+            <small className="text-secondary">
+                <small id="account">{{id}} &nbsp; </small>
+            </small>
+            <ng-template [ngIf]="identicon">
+                <img className="ml-2" width='30' height='30' src={{identicon}} alt="" />
+            </ng-template>
+        </li>
+
+    </ul>
+</nav>
